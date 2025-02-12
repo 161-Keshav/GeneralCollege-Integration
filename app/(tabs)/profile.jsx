@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 
@@ -10,6 +10,42 @@ const Profile = () => {
     phone: '123-456-7890',
   });
 
+  const [Items,setItems] =useState([]);
+  useEffect(()=>
+  {
+    retreiveItems();
+  },[]);
+
+  const retreiveItems = async ()=>
+  {
+    try{
+      const response=await axios.get(`${API_URL}/lost-and-found-items/`);
+      setItems(response.data);
+    }catch(error)
+    {
+      console.error("Error fetching items:", error);
+    }
+  }
+
+  const handleDelete = async (itemId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`${API_URL}/lost-and-found/delete/${itemId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setItems(items.filter((item) => item.item_id !== itemId)); 
+      alert("Item deleted successfully.");
+    } catch (error) {
+     
+      alert("Failed to delete item");
+    }
+  };
+
+  
   const [passwordDetails, setPasswordDetails] = useState({
     newPassword: '',
     confirmPassword: '',

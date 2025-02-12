@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Link } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import axios from 'axios';
-import env from "../../env";
+import env from "../../constants/env";
 const SignUp = () => {
 	const router = useRouter();
 	const[show, setShow] = useState(true)

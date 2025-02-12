@@ -12,7 +12,7 @@ import {
 import { useNavigation,useFocusEffect  } from '@react-navigation/native';
 import images from '../../constants';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../constants/env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {

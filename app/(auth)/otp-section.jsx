@@ -23,6 +23,31 @@ const handleSendOTP = (data) => {
 	setOtpVisible(true); 
 };
 
+const sendOtp=async (email)=>
+{
+	try{
+		const response=await axios.post(`${API_URL}/send`,{email});
+		alert("OTP has been sent");
+	}catch(error)
+	{
+		alert("Error sending OTP");
+	}
+
+	
+}
+
+const verifyOTP =async(email,otp)=>
+{
+	try{
+		const response=await axios.post(`${API_URL}/verify`,{email,otp});
+		// handleVerifyOTP();
+		alert("OTP has been Verified");
+	}catch(error)
+	{
+		res.status(500).send("Error While Verification");
+	}
+}
+
 const handleOTPChange = (text, index) => {
 	const newOtp = [...otp];
 	newOtp[index] = text.replace(/[^0-9]/g, ""); // Ensure only numbers are entered

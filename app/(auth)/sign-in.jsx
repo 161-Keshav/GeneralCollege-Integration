@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { z } from 'zod';
 import axios from 'axios';
-import env from "../../env";
+import env from "../../constants/env";
 const validationSchema = z.object({
   email_id: z.string().email('Invalid email address'),
   password: z
@@ -25,6 +25,21 @@ const SignIn = () => {
   } = useForm({
     resolver: zodResolver(validationSchema),
   });
+
+  async function register()
+  {
+    try{
+       const signIn=await axios.post(env.API_URL,
+        {
+          email,
+          password,
+        }
+       );
+    }catch(error)
+    {
+      res.status(404).json({error:"Sign In Failed"});
+    }
+  }
   const API_URL = env.API_URL;
   const onSubmit = async (data) => {
     try {
@@ -68,6 +83,7 @@ const SignIn = () => {
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
+                    
                   />
                 )}
               />
