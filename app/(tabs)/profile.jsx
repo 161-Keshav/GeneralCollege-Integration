@@ -19,7 +19,7 @@ const Profile = () => {
   const retreiveItems = async ()=>
   {
     try{
-      const response=await axios.get(`${API_URL}/lost-and-found-items/`);
+      const response = await axios.get(`${API_URL}/lost-and-found/items`);
       setItems(response.data);
     }catch(error)
     {
@@ -31,9 +31,13 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`${API_URL}/lost-and-found/delete/${itemId}`, {
+      await axios.delete(`${API_URL}/lost-and-found/delete`, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data:{
+          itemId
         },
       });
 
